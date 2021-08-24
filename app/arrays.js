@@ -4,6 +4,8 @@
 // output: ['is', 'a', 'split', 'sentence.', 'This']
 
 function rearranger(arr) {
+ arr.push(arr.splice(0, 1)[0])
+ return arr
 }
 
 
@@ -16,8 +18,14 @@ function rearranger(arr) {
 // output: 42
 
 function largestNum(arr) {
+   let maxNumber = arr[0];
+   for (let i = 0; i < arr.length; i++) {
+       if (arr[i] > maxNumber) {
+           maxNumber = arr[i]
+       }
+   }
+   return maxNumber
 }
-
 
 // ------------------------------------------
 
@@ -28,6 +36,9 @@ function largestNum(arr) {
 // output: [16, 8, 4, 28]
 
 function elemsTimesLength(arr) {
+    let x = []
+    arr.forEach(element => {x.push(element * arr.length)})
+    return x
 }
 
 
@@ -63,6 +74,11 @@ let flights = [{
 
 function flightCost(destination, firstClass) {
     //***hint: use the find method***
+    const price = flights.find(f => f.to === destination.toUpperCase())
+    if (firstClass) {
+        return price.prices.firstClass
+    }
+    return price.prices.standard
 
 }
 
@@ -84,7 +100,12 @@ let staff = [{ id: 1, name: 'Jon' }, { id: 2, name: 'Yuli' }, { id: 21, name: 'P
 { id: 881, name: 'Paul' }, { id: 0, name: 'Jon' }, { id: 999, name: 'Timma' }]
 
 function findById(id) {
-
+    let user = staff.find(s => s.id === id)
+    if (!user) {
+        return {error: "No user with that id."}
+    } else {
+        return user
+    }
 }
 
 
@@ -111,4 +132,15 @@ let theBand = {
 }
 
 function bandMemberDetails(name) {
+    for (let i = 0; i < theBand.members.length; i++) {
+        let musician = theBand.members[i].name
+        let instrument = theBand.members[i].instrument
+        if(musician == name)
+        {
+            return `${musician} is in the band and plays the ${instrument}`
+        }
+    }
 }
+
+
+
